@@ -22,12 +22,22 @@
             overflow: auto;
         }
         
+        .jukebox-wrapper {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+        }
+        
         .jukebox-container {
             position: relative;
-            width: 900px;
-            height: 1000px;
-            transform: scale(0.8);
+            width: 100%;
+            padding-bottom: 111.11%; /* 1000/900 ratio to maintain aspect */
+            transform: scale(var(--jukebox-scale, 0.8));
             transform-origin: top center;
+        }
+        
+        .jukebox-container > * {
+            position: absolute;
         }
         
         .jukebox-bg {
@@ -38,51 +48,64 @@
             display: block;
         }
         
+        /* Overlay and scroll bar: % so they scale with the window and stay on the blue screen */
+        /* Container is 100% wide, height from padding = 111.11% (1000/900). Overlay ~366/1000, 350/900; height 27% = middle ground on bottom cutoff. */
         .song-list-overlay {
             position: absolute;
-            top: 366px;
+            top: 36.6%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 350px;
-            height: 280px;
+            transform: translateX(calc(-50% - 5px));
+            width: 38.89%;
+            height: 27%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            padding-right: 18px;
+            box-sizing: border-box;
+        }
+        
+        #songList {
+            flex: 1;
+            min-height: 0;
             overflow: hidden;
         }
         
         .column-headers {
             display: flex;
             align-items: center;
-            padding: 8px 16px;
-            margin-bottom: 4px;
+            padding: 6px 16px;
+            margin-bottom: 3px;
         }
         
-        .col-radio { width: 32px; }
-        .col-date { width: 65px; color: white; font-size: 14px; }
-        .col-music { width: 20px; }
-        .col-thing { flex: 1; color: white; font-weight: bold; font-size: 14px; }
+        .col-radio { width: 26px; }
+        .col-date { width: 56px; color: #dde5f7; font-size: 14px; }
+        .col-music { width: 16px; }
+        .col-thing { flex: 1; color: #dde5f7; font-size: 14px; }
         
         .song-item {
             display: flex;
             align-items: flex-start;
-            padding: 6px 16px;
-            min-height: 32px;
+            padding: 5px 16px;
+            min-height: 26px;
         }
         
         .song-item.has-artist {
-            min-height: 52px;
+            min-height: 44px;
         }
         
         .song-item:nth-child(even) {
-            background-color: rgba(0, 0, 200, 0.5);
+            background-color: rgba(0, 0, 180, 0.65);
         }
         
         .song-item:nth-child(odd) {
-            background-color: rgba(0, 0, 200, 0.25);
+            background-color: rgba(0, 0, 180, 0.2);
         }
         
         .radio-circle {
             width: 16px;
             height: 16px;
-            border: 1px solid white;
+            border: 1px solid #dde5f7;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -99,7 +122,7 @@
         .radio-dot {
             width: 0;
             height: 0;
-            border-left: 6px solid white;
+            border-left: 6px solid #dde5f7;
             border-top: 4px solid transparent;
             border-bottom: 4px solid transparent;
             margin-left: 2px;
@@ -113,11 +136,11 @@
         .radio-pause-bar {
             width: 2px;
             height: 6px;
-            background-color: white;
+            background-color: #dde5f7;
         }
         
         .date-text {
-            color: white;
+            color: #dde5f7;
             font-size: 14px;
             padding-top: 2px;
         }
@@ -125,7 +148,7 @@
         .music-icon {
             width: 12px;
             height: 12px;
-            color: white;
+            color: #dde5f7;
             margin-top: 4px;
         }
         
@@ -134,75 +157,77 @@
         }
         
         .thing-title {
-            color: white;
+            color: #dde5f7;
             font-size: 14px;
             line-height: 1.3;
         }
         
         .artist-text {
-            color: white;
+            color: #dde5f7;
             font-size: 14px;
             margin-top: 4px;
             opacity: 0.75;
             font-style: italic;
         }
         
+        /* Scroll bar: starts below Date/Thing header, blue-tinted, shifted right 2px */
         .scroll-controls {
             position: absolute;
-            right: 8px;
-            top: 40px;
-            height: 200px;
+            left: calc(50% + 16.5% + 2px);
+            top: 39.5%;   /* just below the header row (~36.6% + header height) */
+            height: 24%;  /* matches content area below header */
+            width: 1.5%;
+            min-width: 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 20px;
         }
         
         .scroll-btn {
-            background: #c0c0c0;
-            border: 1px solid #808080;
-            border-top-color: #ffffff;
-            border-left-color: #ffffff;
-            border-right-color: #404040;
-            border-bottom-color: #404040;
-            color: #000000;
-            font-size: 12px;
+            background: #b8c4d8;
+            border: 1px solid #8898b0;
+            border-top-color: #d0d8e8;
+            border-left-color: #d0d8e8;
+            border-right-color: #70809a;
+            border-bottom-color: #70809a;
+            color: #2a3548;
+            font-size: 7px;
             cursor: pointer;
-            padding: 2px;
+            padding: 0;
             line-height: 1;
             flex-shrink: 0;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .scroll-btn:hover:not(:disabled) {
-            background: #d0d0d0;
+            background: #c4cee0;
         }
         
         .scroll-btn:active:not(:disabled) {
-            border-top-color: #404040;
-            border-left-color: #404040;
-            border-right-color: #ffffff;
-            border-bottom-color: #ffffff;
-            background: #b0b0b0;
+            border-top-color: #70809a;
+            border-left-color: #70809a;
+            border-right-color: #d0d8e8;
+            border-bottom-color: #d0d8e8;
+            background: #a8b4c8;
         }
         
         .scroll-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            color: #808080;
+            color: #70809a;
         }
         
         .scroll-track {
             flex: 1;
-            width: 16px;
-            background: #808080;
-            border: 1px solid #404040;
-            border-top-color: #000000;
-            border-left-color: #000000;
+            width: 100%;
+            background: #909cb8;
+            border: 1px solid #70809a;
+            border-top-color: #607088;
+            border-left-color: #607088;
             margin: 2px 0;
             position: relative;
             min-height: 100px;
@@ -211,36 +236,37 @@
         .scroll-thumb {
             position: absolute;
             width: 100%;
-            background: #c0c0c0;
-            border: 1px solid #808080;
-            border-top-color: #ffffff;
-            border-left-color: #ffffff;
-            border-right-color: #404040;
-            border-bottom-color: #404040;
+            background: #b8c4d8;
+            border: 1px solid #8898b0;
+            border-top-color: #d0d8e8;
+            border-left-color: #d0d8e8;
+            border-right-color: #70809a;
+            border-bottom-color: #70809a;
             cursor: grab;
             min-height: 20px;
         }
         
         .scroll-thumb:active {
             cursor: grabbing;
-            border-top-color: #404040;
-            border-left-color: #404040;
-            border-right-color: #ffffff;
-            border-bottom-color: #ffffff;
-            background: #b0b0b0;
+            border-top-color: #70809a;
+            border-left-color: #70809a;
+            border-right-color: #d0d8e8;
+            border-bottom-color: #d0d8e8;
+            background: #a8b4c8;
         }
         
         .scroll-thumb:hover {
-            background: #d0d0d0;
+            background: #c4cee0;
         }
     </style>
 </head>
 <body>
-    <div class="jukebox-container">
-        <!-- Background image - CHANGE THIS TO YOUR GIF FILENAME -->
-        <img src="JUKEBOX_A_004.gif" alt="Jukebox" class="jukebox-bg" id="jukeboxBg">
+    <div class="jukebox-wrapper">
+        <div class="jukebox-container">
+            <!-- Background image - CHANGE THIS TO YOUR GIF FILENAME -->
+            <img src="JUKEBOX_A_004.gif" alt="Jukebox" class="jukebox-bg" id="jukeboxBg">
         
-        <!-- Song list overlay -->
+        <!-- Song list overlay (blue screen area) -->
         <div class="song-list-overlay">
             <div class="column-headers">
                 <div class="col-radio"></div>
@@ -248,10 +274,10 @@
                 <div class="col-music"></div>
                 <div class="col-thing">Thing</div>
             </div>
-            
             <div id="songList"></div>
+        </div>
             
-            <div class="scroll-controls">
+        <div class="scroll-controls">
                 <button class="scroll-btn" id="scrollUp" onclick="scrollList(-1)">▲</button>
                 <div class="scroll-track" id="scrollTrack">
                     <div class="scroll-thumb" id="scrollThumb"></div>
@@ -439,7 +465,7 @@
 
         function renderSongs() {
             const songList = document.getElementById('songList');
-            const maxLines = 7;
+            const maxLines = 8;
             
             // Always show newest first
             const displaySongs = [...songs].reverse();
@@ -519,7 +545,7 @@
         }
 
         function getMaxScrollPosition() {
-            const maxLines = 7;
+            const maxLines = 8;
             
             // Start from the end and work backwards to find the last valid scroll position
             for (let startPos = songs.length - 1; startPos >= 0; startPos--) {
@@ -567,7 +593,7 @@
             const totalItems = songs.length;
             
             // Calculate how many items are currently visible
-            const maxLines = 7;
+            const maxLines = 8;
             let visibleItems = 0;
             let currentLines = 0;
             
