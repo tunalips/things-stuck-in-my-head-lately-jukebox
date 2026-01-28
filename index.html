@@ -375,6 +375,7 @@
     <div class="page-layout">
         <div class="left-section">
             <div class="jukebox-intro">
+                <h2 style="font-weight: bold; margin-bottom: 1em;">Tom Goulet's "Things Stuck in my Head Lately" Jukebox</h2>
                 <p>This jukebox is filled with all the things that have been stuck in my head since November 2024. I update it in real time so when something new is stuck in my head I add it to the list and you're able to check it out.</p>
                 <p style="margin-top: 1em;">Some are songs or bits of songs, and others are just words, names, and phrases.</p>
                 <p style="margin-top: 1em;">Please don't try to incept my brain to get something stuck for free advertising on my website. If you try to do that I'll kill you.</p>
@@ -528,34 +529,53 @@
             if (youtubeUrl) {
                 playYouTube(youtubeUrl, thing);
             } else {
-                // Use text-to-speech as fallback
-                const textToSpeak = artist ? `${thing} by ${artist}` : thing;
-                
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.rate = 0.9;
-                utterance.pitch = 1.0;
-                
-                // Use Samantha voice
-                const voices = window.speechSynthesis.getVoices();
-                const samantha = voices.find(voice => voice.name.includes('Samantha'));
-                if (samantha) {
-                    utterance.voice = samantha;
-                }
-                
-                utterance.onend = () => {
-                    currentlyPlaying = null;
-                    setJukeboxPlaying(false);
-                    renderSongs();
-                };
-                
-                window.speechSynthesis.speak(utterance);
-                
-                console.log('Playing:', textToSpeak, 'with voice:', utterance.voice?.name || 'default');
+                // Use text-to-speech as fallback with infinite looping
+                speakTTSLoop(thing, artist);
             }
             
             renderSongs();
+        }
+        
+        function speakTTSLoop(thing, artist) {
+            const itemKey = `${thing}-${artist}`;
+            const textToSpeak = artist ? `${thing} by ${artist}` : thing;
+            
+            // Only continue if this item is still the one playing
+            if (currentlyPlaying !== itemKey) {
+                return;
+            }
+            
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.rate = 0.9;
+            utterance.pitch = 1.0;
+            
+            // Use Samantha voice
+            const voices = window.speechSynthesis.getVoices();
+            const samantha = voices.find(voice => voice.name.includes('Samantha'));
+            if (samantha) {
+                utterance.voice = samantha;
+            }
+            
+            utterance.onend = () => {
+                // Check if we're still playing the same item
+                if (currentlyPlaying === itemKey) {
+                    // Wait random interval between 0.1 and 2.5 seconds, then loop
+                    const delay = Math.random() * (2500 - 100) + 100;
+                    setTimeout(() => {
+                        speakTTSLoop(thing, artist);
+                    }, delay);
+                } else {
+                    // Different item or paused
+                    currentlyPlaying = null;
+                    setJukeboxPlaying(false);
+                    renderSongs();
+                }
+            };
+            
+            window.speechSynthesis.speak(utterance);
+            console.log('Playing:', textToSpeak, 'with voice:', utterance.voice?.name || 'default');
         }
         
         function pauseItem() {
