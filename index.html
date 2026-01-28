@@ -43,9 +43,11 @@
         
         .jukebox-intro {
             width: 100%;
-            font-size: 14px;
+            font-size: 17px;
             line-height: 1.5;
             color: #333;
+            padding-left: 24px;
+            padding-right: 24px;
         }
         
         .page-layout .jukebox-wrapper {
@@ -53,6 +55,13 @@
             width: 900px;
             max-width: min(900px, calc(100vw - 292px));
             position: relative;
+        }
+        
+        /* Desktop: keep jukebox fixed size until we hit mobile breakpoint; layout shifts/scrolls */
+        @media (min-width: 1025px) {
+            .page-layout .jukebox-wrapper {
+                max-width: 900px;
+            }
         }
         
         .page-layout .right-section {
@@ -201,12 +210,12 @@
             font-style: italic;
         }
         
-        /* Scroll bar: starts below Date/Thing header, blue-tinted, shifted right 2px */
+        /* Scroll bar: styled like reference - beige buttons/channel, blue thumb, white channel borders */
         .scroll-controls {
             position: absolute;
             left: calc(50% + 16.5% + 2px);
-            top: 39.5%;   /* just below the header row (~36.6% + header height) */
-            height: 22.5%;  /* a bit shorter at bottom than original, a little lower than 21.5% */
+            top: 39.5%;
+            height: 22.5%;
             width: 1.5%;
             min-width: 14px;
             display: flex;
@@ -215,13 +224,9 @@
         }
         
         .scroll-btn {
-            background: #b8c4d8;
-            border: 1px solid #8898b0;
-            border-top-color: #d0d8e8;
-            border-left-color: #d0d8e8;
-            border-right-color: #70809a;
-            border-bottom-color: #70809a;
-            color: #2a3548;
+            background: #faf4eb;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            color: #0066cc;
             font-size: 7px;
             cursor: pointer;
             padding: 0;
@@ -235,30 +240,27 @@
         }
         
         .scroll-btn:hover:not(:disabled) {
-            background: #c4cee0;
+            background: #fff8ee;
         }
         
         .scroll-btn:active:not(:disabled) {
-            border-top-color: #70809a;
-            border-left-color: #70809a;
-            border-right-color: #d0d8e8;
-            border-bottom-color: #d0d8e8;
-            background: #a8b4c8;
+            background: #f0e8dc;
         }
         
         .scroll-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            color: #70809a;
+            color: #6699cc;
         }
         
         .scroll-track {
             flex: 1;
             width: 100%;
-            background: #909cb8;
-            border: 1px solid #70809a;
-            border-top-color: #607088;
-            border-left-color: #607088;
+            background: transparent;
+            border-left: 0.5px solid rgba(255, 255, 255, 0.6);
+            border-right: 0.5px solid rgba(255, 255, 255, 0.6);
+            border-top: none;
+            border-bottom: none;
             margin: 2px 0;
             position: relative;
             min-height: 100px;
@@ -267,31 +269,109 @@
         .scroll-thumb {
             position: absolute;
             width: 100%;
-            background: #b8c4d8;
-            border: 1px solid #8898b0;
-            border-top-color: #d0d8e8;
-            border-left-color: #d0d8e8;
-            border-right-color: #70809a;
-            border-bottom-color: #70809a;
+            background: #faf4eb;
+            border: 1px solid rgba(255, 255, 255, 0.9);
             cursor: grab;
             min-height: 20px;
         }
         
         .scroll-thumb:active {
             cursor: grabbing;
-            border-top-color: #70809a;
-            border-left-color: #70809a;
-            border-right-color: #d0d8e8;
-            border-bottom-color: #d0d8e8;
-            background: #a8b4c8;
+            background: #f0e8dc;
         }
         
         .scroll-thumb:hover {
-            background: #c4cee0;
+            background: #fff8ee;
+        }
+        
+        .info-icon-btn {
+            display: none;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            background: transparent;
+            color: #000;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .info-icon-btn:hover {
+            background: rgba(0,0,0,0.06);
+        }
+        
+        .info-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 85;
+        }
+        
+        @media (max-width: 1024px) {
+            .info-icon-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .page-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .page-layout .jukebox-wrapper {
+                order: -1;
+            }
+            .page-layout .left-section {
+                display: none;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                margin-right: 0;
+                padding: 20px 16px 16px;
+                padding-top: 24px;
+            }
+            .info-backdrop {
+                display: none;
+            }
+            body.info-open .info-backdrop {
+                display: block;
+            }
+            body.info-open .page-layout .left-section {
+                display: block;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: calc(100vw - 48px);
+                max-height: calc(100vh - 48px);
+                overflow-y: auto;
+                background: white;
+                padding: 28px 24px;
+                z-index: 90;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+            .jukebox-intro p {
+                margin-top: 0.75em;
+            }
+            .page-layout .jukebox-wrapper {
+                width: 100%;
+                max-width: 100%;
+            }
+            .jukebox-container {
+                transform: scale(var(--jukebox-scale, 1));
+            }
         }
     </style>
 </head>
 <body>
+    <button type="button" class="info-icon-btn" id="infoIcon" aria-label="Show info" onclick="toggleInfo()">i</button>
+    <div class="info-backdrop" id="infoBackdrop" onclick="toggleInfo()" aria-hidden="true"></div>
     <div class="page-layout">
         <div class="left-section">
             <div class="jukebox-intro">
@@ -304,7 +384,7 @@
         <div class="jukebox-wrapper">
         <div class="jukebox-container">
             <!-- Background image - CHANGE THIS TO YOUR GIF FILENAME -->
-            <img src="JUKEBOX_A_004.gif" alt="Jukebox" class="jukebox-bg" id="jukeboxBg">
+            <img src="JUKEBOX_A_006.gif" alt="Jukebox" class="jukebox-bg" id="jukeboxBg">
         
         <!-- Song list overlay (blue screen area) -->
         <div class="song-list-overlay">
@@ -329,6 +409,10 @@
     </div>
 
     <script>
+        function toggleInfo() {
+            document.body.classList.toggle('info-open');
+        }
+        
         // CONFIGURE YOUR GOOGLE SHEETS HERE
         const SHEET_ID = '1ELFB3v8VnA8jOUMmyyZIarSvDmhj9wFZp87j5OPxW_w';
         const SHEET_NAME = 'Sheet1';
@@ -377,6 +461,11 @@
         let dragStartY = 0;
         let dragStartScrollPos = 0;
         let currentlyPlaying = null; // Track which item is playing
+
+        function setJukeboxPlaying(playing) {
+            const bg = document.getElementById('jukeboxBg');
+            if (bg) bg.src = playing ? 'JUKEBOX_B_008.gif' : 'JUKEBOX_A_006.gif';
+        }
 
         // Fetch from Google Sheets
         async function fetchFromSheets() {
@@ -433,6 +522,7 @@
             }
             
             currentlyPlaying = itemKey;
+            setJukeboxPlaying(true);
             
             // If there's a YouTube URL, play from YouTube
             if (youtubeUrl) {
@@ -456,6 +546,7 @@
                 
                 utterance.onend = () => {
                     currentlyPlaying = null;
+                    setJukeboxPlaying(false);
                     renderSongs();
                 };
                 
@@ -475,6 +566,7 @@
             closeYouTubePlayer();
             
             currentlyPlaying = null;
+            setJukeboxPlaying(false);
             renderSongs();
         }
         
@@ -487,6 +579,7 @@
             // Reset playing state after a moment
             setTimeout(() => {
                 currentlyPlaying = null;
+                setJukeboxPlaying(false);
                 renderSongs();
             }, 1000);
         }
@@ -586,21 +679,7 @@
         }
 
         function getMaxScrollPosition() {
-            const maxLines = 8;
-            
-            // Start from the end and work backwards to find the last valid scroll position
-            for (let startPos = songs.length - 1; startPos >= 0; startPos--) {
-                let lineCount = 0;
-                for (let i = startPos; i < songs.length; i++) {
-                    lineCount += songs[i].artist ? 2 : 1;
-                }
-                
-                // If we have exactly maxLines or just over, this is our max position
-                if (lineCount >= maxLines) {
-                    return startPos;
-                }
-            }
-            return 0;
+            return Math.max(0, songs.length - 1);
         }
 
         function scrollList(direction) {
@@ -615,12 +694,7 @@
         }
 
         function updateButtons() {
-            const upBtn = document.getElementById('scrollUp');
-            const downBtn = document.getElementById('scrollDown');
-            const maxScroll = getMaxScrollPosition();
-            
-            upBtn.disabled = scrollPosition === 0;
-            downBtn.disabled = scrollPosition >= maxScroll;
+            // Buttons stay enabled at extremes so they don't grey out; scrollList() still guards the limits
         }
 
         function updateScrollThumb() {
@@ -664,7 +738,8 @@
             
             const scrollPercent = scrollPosition / scrollableItems;
             const actualThumbHeight = parseFloat(thumb.style.height);
-            const maxThumbTop = 100 - actualThumbHeight;
+            const bottomGap = 4;
+            const maxThumbTop = Math.max(0, 100 - actualThumbHeight - bottomGap);
             thumb.style.top = (scrollPercent * maxThumbTop) + '%';
         }
 
