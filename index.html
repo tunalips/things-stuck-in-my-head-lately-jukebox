@@ -43,11 +43,15 @@
         
         .jukebox-intro {
             width: 100%;
-            font-size: 17px;
+            font-size: 15px;
             line-height: 1.5;
             color: #333;
             padding-left: 24px;
             padding-right: 24px;
+        }
+        
+        .jukebox-intro h2 {
+            font-size: 1.45em;
         }
         
         .page-layout .jukebox-wrapper {
@@ -377,9 +381,9 @@
             <div class="jukebox-intro">
                 <h2 style="font-weight: bold; margin-bottom: 1em;">Tom Goulet's "Things Stuck in my Head Lately" Jukebox</h2>
                 <p>This jukebox is filled with all the things that have been stuck in my head since November 2024. I update it in real time so when something new is stuck in my head I add it to the list and you're able to check it out.</p>
-                <p style="margin-top: 1em;">Some are songs or bits of songs, and others are just words, names, and phrases.</p>
-                <p style="margin-top: 1em;">Please don't try to incept my brain to get something stuck for free advertising on my website. If you try to do that I'll kill you.</p>
-                <p style="margin-top: 1em;">Having a place to log the things stuck in my head has helped me to get them out, it's a method I invented.</p>
+                <p style="margin-top: 1em;">Sometimes it's songs or bits of songs, and other times it's words, names, and phrases.</p>
+                <p style="margin-top: 1em;">Having a place to log the things stuck in my head has helped me to get them out. It's a method I invented.</p>
+                <p style="margin-top: 1em;"><em><strong>Disclaimer:</strong> Please don't try to incept my brain with something in real life to try to get free advertising on my website. If you try to do that I'll kill you.</em></p>
             </div>
         </div>
         <div class="jukebox-wrapper">
@@ -420,41 +424,41 @@
         const API_KEY = 'AIzaSyA2AYeZrl2H3_Ub1kj7xsP9tbxL9g5KduM';
         
         let songs = [
-            { date: '11/18/2024', thing: 'Coco Gauff', artist: '', youtubeUrl: '' },
-            { date: '11/19/2024', thing: 'delusiouns of grandeur', artist: '', youtubeUrl: '' },
-            { date: '11/19/2024', thing: 'cudgel', artist: '', youtubeUrl: '' },
-            { date: '11/20/2024', thing: 'promulgate', artist: '', youtubeUrl: '' },
-            { date: '11/24/2024', thing: 'Spiro Agnew', artist: '', youtubeUrl: '' },
-            { date: '11/30/2024', thing: 'Crazy, scary, spooky, hilarious', artist: 'tv off by Kendrick Lamar', youtubeUrl: '' },
-            { date: '12/2/2024', thing: 'Christmas Night in Harlem', artist: 'Louis Armstrong', youtubeUrl: '' },
-            { date: '12/4/2024', thing: 'Elon Tusk', artist: '', youtubeUrl: '' },
-            { date: '12/5/2024', thing: 'Like The End', artist: 'James Blake', youtubeUrl: '' },
-            { date: '12/6/2024', thing: 'ameliorate', artist: '', youtubeUrl: '' },
-            { date: '12/7/2024', thing: 'Pete Hegseth', artist: '', youtubeUrl: '' },
-            { date: '12/9/2024', thing: 'Jidori chicken', artist: '', youtubeUrl: '' },
-            { date: '12/18/2024', thing: 'September', artist: 'Earth, Wind, and Fire', youtubeUrl: '' },
-            { date: '1/4/2025', thing: 'Espresso', artist: 'Sabrina Carpenter', youtubeUrl: '' },
-            { date: '1/18/2025', thing: 'modus operandi', artist: '', youtubeUrl: '' },
-            { date: '2/19/2025', thing: 'Edgecumbe', artist: '', youtubeUrl: '' },
-            { date: '2/24/2025', thing: 'Nessun Dorma!', artist: 'Luciano Pavarotti', youtubeUrl: '' },
-            { date: '3/14/2025', thing: 'curds and whey', artist: '', youtubeUrl: '' },
-            { date: '4/14/2024', thing: 'Gadzooks!', artist: '', youtubeUrl: '' },
-            { date: '5/5/2025', thing: 'malaprop', artist: '', youtubeUrl: '' },
-            { date: '7/7/2025', thing: 'Manchurian Candidate', artist: '', youtubeUrl: '' },
-            { date: '7/18/2025', thing: 'luminate seer', artist: '', youtubeUrl: '' },
-            { date: '7/19/2025', thing: 'yellow diamonds look like peepee', artist: 'Ace Trumpets by Clipse', youtubeUrl: '' },
-            { date: '8/7/2025', thing: '99 baby, girl you crazy', artist: '1999 She by Deaton Chris Anthony', youtubeUrl: '' },
-            { date: '8/18/2025', thing: 'Nilüfer Yanya', artist: '', youtubeUrl: '' },
-            { date: '8/26/2025', thing: 'dinted', artist: '', youtubeUrl: '' },
-            { date: '6/27/2025', thing: 'Reince Priebus', artist: '', youtubeUrl: '' },
-            { date: '11/8/2025', thing: 'apropos', artist: '', youtubeUrl: '' },
-            { date: '11/23/2025', thing: 'This Is How We Do It', artist: 'Montell Jordan', youtubeUrl: '' },
-            { date: '11/24/2025', thing: 'The World is Crowded', artist: 'Unknown Mortal Orchestra', youtubeUrl: '' },
-            { date: '12/7/2025', thing: 'Nicolas Hülkenberg', artist: '', youtubeUrl: '' },
-            { date: '12/13/2025', thing: 'Eckhart Tolle', artist: '', youtubeUrl: '' },
-            { date: '1/12/2025', thing: 'Weprins of mass destruction', artist: '', youtubeUrl: '' },
-            { date: '1/22/2026', thing: 'pay-per-towel', artist: '', youtubeUrl: '' },
-            { date: '1/24/2026', thing: 'AJ Epenesa', artist: '', youtubeUrl: '' },
+            { date: '11/18/2024', thing: 'Coco Gauff', artist: '', youtubeUrl: '', audioUrl: '', audioUrl: '' },
+            { date: '11/19/2024', thing: 'delusiouns of grandeur', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '11/19/2024', thing: 'cudgel', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '11/20/2024', thing: 'promulgate', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '11/24/2024', thing: 'Spiro Agnew', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '11/30/2024', thing: 'Crazy, scary, spooky, hilarious', artist: 'tv off by Kendrick Lamar', youtubeUrl: '', audioUrl: '' },
+            { date: '12/2/2024', thing: 'Christmas Night in Harlem', artist: 'Louis Armstrong', youtubeUrl: '', audioUrl: '' },
+            { date: '12/4/2024', thing: 'Elon Tusk', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '12/5/2024', thing: 'Like The End', artist: 'James Blake', youtubeUrl: '', audioUrl: '' },
+            { date: '12/6/2024', thing: 'ameliorate', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '12/7/2024', thing: 'Pete Hegseth', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '12/9/2024', thing: 'Jidori chicken', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '12/18/2024', thing: 'September', artist: 'Earth, Wind, and Fire', youtubeUrl: '', audioUrl: '' },
+            { date: '1/4/2025', thing: 'Espresso', artist: 'Sabrina Carpenter', youtubeUrl: '', audioUrl: '' },
+            { date: '1/18/2025', thing: 'modus operandi', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '2/19/2025', thing: 'Edgecumbe', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '2/24/2025', thing: 'Nessun Dorma!', artist: 'Luciano Pavarotti', youtubeUrl: '', audioUrl: '' },
+            { date: '3/14/2025', thing: 'curds and whey', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '4/14/2024', thing: 'Gadzooks!', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '5/5/2025', thing: 'malaprop', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '7/7/2025', thing: 'Manchurian Candidate', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '7/18/2025', thing: 'luminate seer', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '7/19/2025', thing: 'yellow diamonds look like peepee', artist: 'Ace Trumpets by Clipse', youtubeUrl: '', audioUrl: '' },
+            { date: '8/7/2025', thing: '99 baby, girl you crazy', artist: '1999 She by Deaton Chris Anthony', youtubeUrl: '', audioUrl: '' },
+            { date: '8/18/2025', thing: 'Nilüfer Yanya', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '8/26/2025', thing: 'dinted', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '6/27/2025', thing: 'Reince Priebus', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '11/8/2025', thing: 'apropos', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '11/23/2025', thing: 'This Is How We Do It', artist: 'Montell Jordan', youtubeUrl: '', audioUrl: '' },
+            { date: '11/24/2025', thing: 'The World is Crowded', artist: 'Unknown Mortal Orchestra', youtubeUrl: '', audioUrl: '' },
+            { date: '12/7/2025', thing: 'Nicolas Hülkenberg', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '12/13/2025', thing: 'Eckhart Tolle', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '1/12/2025', thing: 'Weprins of mass destruction', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '1/22/2026', thing: 'pay-per-towel', artist: '', youtubeUrl: '', audioUrl: '' },
+            { date: '1/24/2026', thing: 'AJ Epenesa', artist: '', youtubeUrl: '', audioUrl: '' },
         ];
 
         let scrollPosition = 0;
@@ -476,17 +480,24 @@
             }
 
             try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A2:D?key=${API_KEY}`;
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A2:E?key=${API_KEY}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 
                 if (data.values) {
-                    songs = data.values.map(row => ({
-                        date: row[0] || '',
-                        thing: row[1] || '',
-                        artist: row[2] || '',
-                        youtubeUrl: row[3] || ''
-                    }));
+                    songs = data.values.map(row => {
+                        const colE = (row[4] || '').trim();
+                        const colD = (row[3] || '').trim();
+                        // Column E overrides column D: use E when present, otherwise D
+                        const hasAudio = !!colE;
+                        return {
+                            date: row[0] || '',
+                            thing: row[1] || '',
+                            artist: row[2] || '',
+                            youtubeUrl: hasAudio ? '' : colD,
+                            audioUrl: colE
+                        };
+                    });
                     console.log('Loaded', songs.length, 'songs from Google Sheets');
                     renderSongs();
                 }
@@ -503,12 +514,14 @@
             const displaySongs = [...songs].reverse();
             const song = displaySongs[originalIndex];
             if (song) {
-                playItem(song.thing, song.artist, song.youtubeUrl);
+                playItem(song.thing, song.artist, song.youtubeUrl, song.audioUrl);
             }
         }
 
+        let currentAudio = null; // Track currently playing audio element
+
         // Play audio function
-        function playItem(thing, artist, youtubeUrl) {
+        function playItem(thing, artist, youtubeUrl, audioUrl) {
             const itemKey = `${thing}-${artist}`;
             
             // If this item is already playing, pause it
@@ -525,8 +538,10 @@
             currentlyPlaying = itemKey;
             setJukeboxPlaying(true);
             
-            // If there's a YouTube URL, play from YouTube
-            if (youtubeUrl) {
+            // Priority: audio file > YouTube URL > TTS
+            if (audioUrl) {
+                playAudioFile(audioUrl, thing, artist);
+            } else if (youtubeUrl) {
                 playYouTube(youtubeUrl, thing);
             } else {
                 // Use text-to-speech as fallback with infinite looping
@@ -561,8 +576,8 @@
             utterance.onend = () => {
                 // Check if we're still playing the same item
                 if (currentlyPlaying === itemKey) {
-                    // Wait random interval between 0.1 and 2.5 seconds, then loop
-                    const delay = Math.random() * (2500 - 100) + 100;
+                    // Wait 1 second, then loop
+                    const delay = 1000;
                     setTimeout(() => {
                         speakTTSLoop(thing, artist);
                     }, delay);
@@ -578,7 +593,61 @@
             console.log('Playing:', textToSpeak, 'with voice:', utterance.voice?.name || 'default');
         }
         
+        function playAudioFile(audioUrl, thing, artist) {
+            const itemKey = `${thing}-${artist}`;
+            
+            // Stop any current audio
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
+            // Create new audio element
+            const audio = new Audio(audioUrl);
+            currentAudio = audio;
+            
+            audio.onended = () => {
+                // Check if we're still playing the same item
+                if (currentlyPlaying === itemKey) {
+                    // Music clips repeat immediately with no gap
+                    setTimeout(() => {
+                        if (currentlyPlaying === itemKey) {
+                            playAudioFile(audioUrl, thing, artist);
+                        }
+                    }, 0);
+                } else {
+                    // Different item or paused
+                    currentAudio = null;
+                    currentlyPlaying = null;
+                    setJukeboxPlaying(false);
+                    renderSongs();
+                }
+            };
+            
+            audio.onerror = () => {
+                console.error('Error loading audio file:', audioUrl);
+                // Fallback to TTS if audio fails
+                currentAudio = null;
+                speakTTSLoop(thing, artist);
+            };
+            
+            audio.play().catch(err => {
+                console.error('Error playing audio:', err);
+                // Fallback to TTS if play fails
+                currentAudio = null;
+                speakTTSLoop(thing, artist);
+            });
+            
+            console.log('Playing audio file:', audioUrl);
+        }
+        
         function pauseItem() {
+            // Stop audio file
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
             // Stop text-to-speech
             window.speechSynthesis.cancel();
             
