@@ -30,42 +30,36 @@
         }
         
         .page-layout .left-section {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            justify-content: flex-start;
-            padding-right: 24px;
-            overflow: visible;
-            padding-top: 250px;
+            flex: 0 0 auto;
+            width: min(350px, calc(100vw - 912px));
+            min-width: 280px;
+            padding-right: 12px;
+            padding-top: 50px;
         }
         
         .jukebox-intro {
             width: 100%;
-            max-width: 350px;
             font-size: 14px;
             line-height: 1.5;
             color: #333;
-            position: relative;
-            z-index: 1;
         }
         
         .page-layout .jukebox-wrapper {
             flex-shrink: 0;
-            width: 100%;
-            max-width: 900px;
+            width: 900px;
+            max-width: min(900px, calc(100vw - 292px));
             position: relative;
         }
         
         .page-layout .right-section {
-            flex: 1;
-            min-width: 0;
+            display: none;
         }
         
         .jukebox-container {
             position: relative;
             width: 100%;
             padding-bottom: 111.11%; /* 1000/900 ratio to maintain aspect */
-            transform: scale(var(--jukebox-scale, 0.8));
+            transform: scale(var(--jukebox-scale, 0.65));
             transform-origin: top center;
         }
         
@@ -327,7 +321,7 @@
                 <button class="scroll-btn" id="scrollDown" onclick="scrollList(1)">▼</button>
             </div>
         </div>
-        <div class="right-section"></div>
+        </div>
     </div>
 
     <script>
