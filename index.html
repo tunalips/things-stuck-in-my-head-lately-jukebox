@@ -78,6 +78,7 @@
             padding-bottom: 111.11%; /* 1000/900 ratio to maintain aspect */
             transform: scale(var(--jukebox-scale, 0.75));
             transform-origin: top center;
+            --text-scale: var(--jukebox-scale, 0.75);
         }
         
         .jukebox-container > * {
@@ -104,8 +105,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            padding-left: 10px;
-            padding-right: 18px;
+            padding-left: calc(10px * var(--text-scale, 0.75));
+            padding-right: calc(18px * var(--text-scale, 0.75));
             box-sizing: border-box;
         }
         
@@ -118,24 +119,24 @@
         .column-headers {
             display: flex;
             align-items: center;
-            padding: 6px 16px;
-            margin-bottom: 3px;
+            padding: calc(6px * var(--text-scale, 0.75)) calc(16px * var(--text-scale, 0.75));
+            margin-bottom: calc(3px * var(--text-scale, 0.75));
         }
         
-        .col-radio { width: 26px; }
-        .col-date { width: 56px; color: #dde5f7; font-size: 14px; }
-        .col-music { width: 16px; }
-        .col-thing { flex: 1; color: #dde5f7; font-size: 14px; }
+        .col-radio { width: calc(26px * var(--text-scale, 0.75)); }
+        .col-date { width: calc(56px * var(--text-scale, 0.75)); color: #dde5f7; font-size: calc(14px * var(--text-scale, 0.75)); }
+        .col-music { width: calc(16px * var(--text-scale, 0.75)); }
+        .col-thing { flex: 1; color: #dde5f7; font-size: calc(14px * var(--text-scale, 0.75)); }
         
         .song-item {
             display: flex;
             align-items: flex-start;
-            padding: 5px 16px;
-            min-height: 26px;
+            padding: calc(5px * var(--text-scale, 0.75)) calc(16px * var(--text-scale, 0.75));
+            min-height: calc(26px * var(--text-scale, 0.75));
         }
         
         .song-item.has-artist {
-            min-height: 44px;
+            min-height: calc(44px * var(--text-scale, 0.75));
         }
         
         .song-item:nth-child(even) {
@@ -147,14 +148,14 @@
         }
         
         .radio-circle {
-            width: 16px;
-            height: 16px;
-            border: 1px solid #dde5f7;
+            width: calc(16px * var(--text-scale, 0.75));
+            height: calc(16px * var(--text-scale, 0.75));
+            border: calc(1px * var(--text-scale, 0.75)) solid #dde5f7;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 4px;
+            margin-top: calc(4px * var(--text-scale, 0.75));
             cursor: pointer;
             position: relative;
         }
@@ -166,34 +167,34 @@
         .radio-dot {
             width: 0;
             height: 0;
-            border-left: 6px solid #dde5f7;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            margin-left: 2px;
+            border-left: calc(6px * var(--text-scale, 0.75)) solid #dde5f7;
+            border-top: calc(4px * var(--text-scale, 0.75)) solid transparent;
+            border-bottom: calc(4px * var(--text-scale, 0.75)) solid transparent;
+            margin-left: calc(2px * var(--text-scale, 0.75));
         }
         
         .radio-pause {
             display: flex;
-            gap: 1.5px;
+            gap: calc(1.5px * var(--text-scale, 0.75));
         }
         
         .radio-pause-bar {
-            width: 2px;
-            height: 6px;
+            width: calc(2px * var(--text-scale, 0.75));
+            height: calc(6px * var(--text-scale, 0.75));
             background-color: #dde5f7;
         }
         
         .date-text {
             color: #dde5f7;
-            font-size: 14px;
-            padding-top: 2px;
+            font-size: calc(14px * var(--text-scale, 0.75));
+            padding-top: calc(2px * var(--text-scale, 0.75));
         }
         
         .music-icon {
-            width: 12px;
-            height: 12px;
+            width: calc(12px * var(--text-scale, 0.75));
+            height: calc(12px * var(--text-scale, 0.75));
             color: #dde5f7;
-            margin-top: 4px;
+            margin-top: calc(4px * var(--text-scale, 0.75));
         }
         
         .thing-content {
@@ -202,14 +203,14 @@
         
         .thing-title {
             color: #dde5f7;
-            font-size: 14px;
+            font-size: calc(14px * var(--text-scale, 0.75));
             line-height: 1.3;
         }
         
         .artist-text {
             color: #dde5f7;
-            font-size: 14px;
-            margin-top: 4px;
+            font-size: calc(14px * var(--text-scale, 0.75));
+            margin-top: calc(4px * var(--text-scale, 0.75));
             opacity: 0.75;
             font-style: italic;
         }
@@ -220,8 +221,9 @@
             left: calc(50% + 16.5% + 2px);
             top: 39.5%;
             height: 22.5%;
+            max-height: calc(63.6% - 39.5%); /* Constrain to not extend beyond overlay bottom (36.6% + 27% = 63.6%) */
             width: 1.5%;
-            min-width: 14px;
+            min-width: calc(14px * var(--text-scale, 0.75));
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -229,15 +231,15 @@
         
         .scroll-btn {
             background: #faf4eb;
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            border: calc(1px * var(--text-scale, 0.75)) solid rgba(255, 255, 255, 0.9);
             color: #0066cc;
-            font-size: 7px;
+            font-size: calc(7px * var(--text-scale, 0.75));
             cursor: pointer;
             padding: 0;
             line-height: 1;
             flex-shrink: 0;
-            width: 14px;
-            height: 14px;
+            width: calc(14px * var(--text-scale, 0.75));
+            height: calc(14px * var(--text-scale, 0.75));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -261,22 +263,22 @@
             flex: 1;
             width: 100%;
             background: transparent;
-            border-left: 0.5px solid rgba(255, 255, 255, 0.6);
-            border-right: 0.5px solid rgba(255, 255, 255, 0.6);
+            border-left: calc(0.5px * var(--text-scale, 0.75)) solid rgba(255, 255, 255, 0.6);
+            border-right: calc(0.5px * var(--text-scale, 0.75)) solid rgba(255, 255, 255, 0.6);
             border-top: none;
             border-bottom: none;
-            margin: 2px 0;
+            margin: calc(2px * var(--text-scale, 0.75)) 0;
             position: relative;
-            min-height: 100px;
+            min-height: calc(100px * var(--text-scale, 0.75));
         }
         
         .scroll-thumb {
             position: absolute;
             width: 100%;
             background: #faf4eb;
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            border: calc(1px * var(--text-scale, 0.75)) solid rgba(255, 255, 255, 0.9);
             cursor: grab;
-            min-height: 20px;
+            min-height: calc(20px * var(--text-scale, 0.75));
         }
         
         .scroll-thumb:active {
@@ -369,6 +371,7 @@
             }
             .jukebox-container {
                 transform: scale(var(--jukebox-scale, 1));
+                --text-scale: var(--jukebox-scale, 1);
             }
         }
     </style>
@@ -841,24 +844,19 @@
                 return;
             }
             
-            thumb.addEventListener('mousedown', (e) => {
+            const handleDragStart = (clientY) => {
                 isDragging = true;
-                dragStartY = e.clientY;
+                dragStartY = clientY;
                 dragStartScrollPos = scrollPosition;
-                e.preventDefault();
-            });
-            
-            const stopDragging = () => {
-                isDragging = false;
             };
             
-            document.addEventListener('mousemove', (e) => {
+            const handleDragMove = (clientY) => {
                 if (!isDragging) return;
                 
                 const trackRect = track.getBoundingClientRect();
                 const trackHeight = trackRect.height;
                 
-                const deltaY = e.clientY - dragStartY;
+                const deltaY = clientY - dragStartY;
                 
                 const totalItems = songs.length;
                 const scrollableItems = totalItems - 1;
@@ -870,16 +868,105 @@
                 
                 scrollPosition = Math.max(0, Math.min(scrollableItems, newScrollPos));
                 renderSongs();
+            };
+            
+            const stopDragging = () => {
+                isDragging = false;
+            };
+            
+            // Mouse events
+            thumb.addEventListener('mousedown', (e) => {
+                handleDragStart(e.clientY);
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                handleDragMove(e.clientY);
             });
             
             document.addEventListener('mouseup', stopDragging);
             document.addEventListener('mouseleave', stopDragging);
+            
+            // Touch events for mobile
+            thumb.addEventListener('touchstart', (e) => {
+                handleDragStart(e.touches[0].clientY);
+                e.preventDefault(); // Prevent scrolling while dragging
+            }, { passive: false });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                handleDragMove(e.touches[0].clientY);
+                e.preventDefault(); // Prevent scrolling while dragging
+            }, { passive: false });
+            
+            document.addEventListener('touchend', stopDragging);
+            document.addEventListener('touchcancel', stopDragging);
         }
 
+        // Calculate and update jukebox scale dynamically
+        function updateJukeboxScale() {
+            const container = document.querySelector('.jukebox-container');
+            const wrapper = document.querySelector('.jukebox-wrapper');
+            if (!container || !wrapper) return;
+            
+            // Base width is 900px
+            const baseWidth = 900;
+            const viewportWidth = window.innerWidth;
+            const wrapperWidth = wrapper.offsetWidth;
+            
+            // On mobile (viewport < 1025px), calculate scale to fill more of the screen
+            const isMobile = viewportWidth < 1025;
+            
+            let calculatedScale;
+            if (isMobile) {
+                // On mobile, scale proportionally based on viewport width
+                // Narrower screens = larger scale, wider screens = smaller scale
+                const mobileMinWidth = 320;  // Narrowest typical mobile
+                const mobileMaxWidth = 1024; // Widest mobile breakpoint
+                
+                // Normalize viewport width to 0-1 range within mobile bounds
+                const normalizedWidth = Math.max(0, Math.min(1, 
+                    (viewportWidth - mobileMinWidth) / (mobileMaxWidth - mobileMinWidth)
+                ));
+                
+                // Scale range: larger on narrow screens (1.6x), smaller on wide screens (0.95x)
+                // Invert normalizedWidth so narrow = higher scale
+                const scaleMultiplier = 1.6 - (normalizedWidth * 0.65); // Range: 1.6 to 0.95
+                
+                // Base scale from viewport width
+                const baseScale = (viewportWidth * 0.98) / baseWidth;
+                
+                // Apply proportional multiplier
+                calculatedScale = baseScale * scaleMultiplier;
+                
+                // Adjust wrapper width to match the scaled container size
+                // This prevents empty space on the sides
+                const scaledWidth = baseWidth * calculatedScale;
+                wrapper.style.width = scaledWidth + 'px';
+                wrapper.style.maxWidth = scaledWidth + 'px';
+            } else {
+                // On desktop, use wrapper width and reset wrapper styles
+                calculatedScale = wrapperWidth / baseWidth;
+                wrapper.style.width = '';
+                wrapper.style.maxWidth = '';
+            }
+            
+            // Clamp between reasonable bounds (don't go below 0.4, allow up to 1.6 for mobile narrow screens)
+            calculatedScale = Math.max(0.4, Math.min(1.6, calculatedScale));
+            
+            // Set the scale variable
+            container.style.setProperty('--jukebox-scale', calculatedScale);
+            container.style.setProperty('--text-scale', calculatedScale);
+        }
+        
+        // Update scale on load and resize
+        window.addEventListener('resize', updateJukeboxScale);
+        
         // Initialize
         fetchFromSheets();
         renderSongs();
         initScrollDrag();
+        updateJukeboxScale(); // Set initial scale
         
         // Refresh from Google Sheets every 30 seconds
         setInterval(fetchFromSheets, 30000);
