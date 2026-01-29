@@ -903,6 +903,10 @@
             document.addEventListener('touchcancel', stopDragging);
         }
 
+        // Track if we're on mobile to prevent zoom-related resizing issues
+        let isMobileDevice = false;
+        let lastKnownViewportWidth = window.innerWidth;
+        
         // Calculate and update jukebox scale dynamically
         function updateJukeboxScale() {
             const container = document.querySelector('.jukebox-container');
@@ -914,8 +918,19 @@
             const viewportWidth = window.innerWidth;
             const wrapperWidth = wrapper.offsetWidth;
             
-            // On mobile (viewport < 1025px), calculate scale to fill more of the screen
-            const isMobile = viewportWidth < 1025;
+            // Detect mobile device (not just viewport size)
+            // Use a more stable check - if viewport is small OR if it's a touch device
+            const isMobile = viewportWidth < 1025 || ('ontouchstart' in window);
+            isMobileDevice = isMobile;
+            
+            // On mobile, use the last known stable viewport width to prevent zoom issues
+            // Only update if the change is significant (not just zoom)
+            const widthChange = Math.abs(viewportWidth - lastKnownViewportWidth);
+            const stableViewportWidth = (isMobile && widthChange < 50) ? lastKnownViewportWidth : viewportWidth;
+            
+            if (isMobile && widthChange >= 50) {
+                lastKnownViewportWidth = viewportWidth;
+            }
             
             let calculatedScale;
             if (isMobile) {
@@ -924,17 +939,20 @@
                 const mobileMinWidth = 320;  // Narrowest typical mobile
                 const mobileMaxWidth = 1024; // Widest mobile breakpoint
                 
+                // Use stable viewport width to prevent zoom-related resizing
+                const widthForScale = stableViewportWidth;
+                
                 // Normalize viewport width to 0-1 range within mobile bounds
                 const normalizedWidth = Math.max(0, Math.min(1, 
-                    (viewportWidth - mobileMinWidth) / (mobileMaxWidth - mobileMinWidth)
+                    (widthForScale - mobileMinWidth) / (mobileMaxWidth - mobileMinWidth)
                 ));
                 
                 // Scale range: larger on narrow screens (1.6x), smaller on wide screens (0.95x)
                 // Invert normalizedWidth so narrow = higher scale
                 const scaleMultiplier = 1.6 - (normalizedWidth * 0.65); // Range: 1.6 to 0.95
                 
-                // Base scale from viewport width
-                const baseScale = (viewportWidth * 0.98) / baseWidth;
+                // Base scale from stable viewport width
+                const baseScale = (widthForScale * 0.98) / baseWidth;
                 
                 // Apply proportional multiplier
                 calculatedScale = baseScale * scaleMultiplier;
@@ -959,8 +977,24 @@
             container.style.setProperty('--text-scale', calculatedScale);
         }
         
-        // Update scale on load and resize
-        window.addEventListener('resize', updateJukeboxScale);
+        // Update scale on load and resize, but throttle on mobile to prevent zoom issues
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            if (isMobileDevice) {
+                // On mobile, throttle resize updates to prevent zoom-related issues
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    // Only update if the change is significant (orientation change, not zoom)
+                    const currentWidth = window.innerWidth;
+                    const widthChange = Math.abs(currentWidth - lastKnownViewportWidth);
+                    if (widthChange > 50) {
+                        updateJukeboxScale();
+                    }
+                }, 150);
+            } else {
+                updateJukeboxScale();
+            }
+        });
         
         // Initialize
         fetchFromSheets();
